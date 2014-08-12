@@ -3582,7 +3582,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             bins.Total_Price = Convert.ToDouble(txtInvoice_InstalTotalAmount.Text);
             bins.Paid_Amount = Convert.ToDouble(txtInvoice_InstalPaidAmount.Text);
             bins.Balance_Amount = Convert.ToDouble(txtInvoice_InstalBalanceAmount.Text);
-            bins.Balance_Amount = Convert.ToDouble(txtInvoice_Instal_InstalAmountPermonth.Text);
+            bins.Monthly_Amount = Convert.ToDouble(txtInvoice_Instal_InstalAmountPermonth.Text);
             if (rdo_Invoice_Yearlyinstallment.IsChecked ==true )
             {string yearins=cmdInvoice_InstalYear.SelectedValue.ToString();
             
@@ -3629,12 +3629,111 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
 
         private void smaddinstallment_Click(object sender, RoutedEventArgs e)
         {
-
+            GRD_Installment.Visibility = Visibility;
+            Load_InstallmentCustomers();
+            fetchCustomerID();
+            Load_YearMonth();
         }
 
         private void btnInstall_ExitInstallment_Click(object sender, RoutedEventArgs e)
         {
             GRD_Installment.Visibility = Visibility.Hidden;
+        }
+        public void fetchCustomerID()
+        {
+            cmbInstall_CustID.Text = "--Select--";
+            string q = "Select tlb_Customer.Cust_ID from tlb_Customer Inner join tlb_MainInstallment On tlb_MainInstallment.Customer_ID =tlb_Customer.ID where tlb_MainInstallment. S_Status='Active'";
+            cmd = new SqlCommand(q, con);
+            // DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+            adp.Fill(ds);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+               // cmbInstall_CustID.SelectedValuePath = ds.Tables[0].Columns["Customer_ID"].ToString();
+                cmbInstall_CustID.ItemsSource = ds.Tables[0].DefaultView;
+                cmbInstall_CustID.DisplayMemberPath = ds.Tables[0].Columns["Cust_ID"].ToString();
+            }
+        }
+        public void Load_InstallmentCustomers()
+        {
+            cmbInstall_CustID.Text = "--Select--";
+            string q = "SELECT tlb_MainInstallment.ID  ,tlb_Customer.Cust_ID,tlb_Customer.Name ,tlb_MainInstallment.Bill_No ,tlb_MainInstallment.Total_Price ,tlb_MainInstallment.Paid_Amount ,tlb_MainInstallment.Balance_Amount ,tlb_MainInstallment.Monthly_Amount,tlb_MainInstallment.Installment_Year ,tlb_MainInstallment.Installment_Month ,tlb_MainInstallment.Installment_Date FROM tlb_MainInstallment INNER JOIN tlb_Customer ON tlb_MainInstallment.Customer_ID =tlb_Customer.ID  and tlb_MainInstallment.S_Status='Active'";
+            cmd = new SqlCommand(q, con);
+            // DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+            adp.Fill(ds);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                // cmbInstall_CustID.SelectedValuePath = ds.Tables[0].Columns["ID"].ToString();
+                DGRD_InstallmentCust.ItemsSource = ds.Tables[0].DefaultView;
+                // cmbInstall_CustID.DisplayMemberPath = ds.Tables[0].Columns["Customer_ID"].ToString();
+            }
+        }
+        public void Load_YearMonth()
+        {
+            cmbInstall_Year_Month.Text = "--Select--";
+            cmbInstall_Year_Month.Items.Add("Year");
+            cmbInstall_Year_Month.Items.Add("Month");
+        }
+
+        private void txtInstall_CustName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            DealerDetails_LoadData();
+        }
+        public void DealerDetails_LoadData()
+        {
+            try
+            {
+                String str;
+                //con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT tlb_MainInstallment.ID  ,tlb_Customer.Cust_ID,tlb_Customer.Name ,tlb_MainInstallment.Bill_No ,tlb_MainInstallment.Total_Price ,tlb_MainInstallment.Paid_Amount " +
+                ",tlb_MainInstallment.Balance_Amount ,tlb_MainInstallment.Monthly_Amount,tlb_MainInstallment.Installment_Year ,tlb_MainInstallment.Installment_Month ,tlb_MainInstallment.Installment_Date " +
+                " FROM tlb_MainInstallment " +
+                " INNER JOIN tlb_Customer ON tlb_Customer.ID = tlb_MainInstallment.Customer_ID  " +
+                //and tlb_MainInstallment.S_Status='Active'
+               // str = "SELECT [ID],[DealerEntryID],[CompanyName],[DealerFirstName] + ' ' + [DealerLastName] AS [DealerName],[DateOfBirth],[MobileNo],[PhoneNo],[DealerAddress] " +
+                            // "FROM [tbl_DealerEntry] " +
+                             "WHERE ";
+                if (txtInstall_CustName.Text.Trim() != "")
+                {
+                    str = str + "tlb_Customer.Name LIKE ISNULL('" + txtInstall_CustName.Text.Trim() + "',tlb_Customer.Name) + '%' AND ";
+                }
+                if (cmbInstall_CustID.Text !="--Select--")
+                {
+                    str = str + " tlb_Customer.Cust_ID LIKE ISNULL('" + cmbInstall_CustID.Text.Trim() + "',tlb_Customer.Cust_ID) + '%' AND ";
+                }
+                //if (cmbInstall_Year_Month.Text .Trim() != string.Empty)
+                //{
+                //    str = str + "[MobileNo] LIKE ISNULL('" + cmbInstall_Year_Month.Text.Trim() + "',MobileNo) + '%' AND ";
+                //}
+                str = str + " tlb_MainInstallment.S_Status = 'Active' ORDER BY tlb_Customer.Name ASC ";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                DGRD_InstallmentCust.ItemsSource = ds.Tables[0].DefaultView;
+                //}
+            }
+          catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void cmbInstall_CustID_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DealerDetails_LoadData();
         }
     }
 
