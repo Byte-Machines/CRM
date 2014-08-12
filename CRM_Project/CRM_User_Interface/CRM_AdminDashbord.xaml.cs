@@ -1804,6 +1804,129 @@ namespace CRM_User_Interface
             
             
         }
+
+        public void SaleCustomer_Details()
+        {
+            try
+            {
+                String str;
+                //con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT P.[ID],P.[Customer_ID],P.[Bill_No],P.[Payment_Mode] " +
+                      ",C.[Name],C.[Mobile_No], C.[Email_ID] " +
+                      ",CA.[Customer_ID],CA.[Total_Price],CA.[Paid_Amount],CA.[Balance_Amount] " +
+                      ",CC.[Customer_ID] " + 
+                      "FROM [tlb_Bill_No] P " +
+                      "INNER JOIN [tlb_Customer] C ON C.[ID]=P.[Customer_ID] " +
+                      "INNER JOIN [tlb_Cash] CA ON CA.[Customer_ID]=P.[Customer_ID] " +
+                      "INNER JOIN [tlb_Cheque] CC ON CC.[Customer_ID]=P.[Customer_ID] " +
+                      "WHERE ";
+
+                if (txtAdm_SaleCustBillNo_Search.Text.Trim() != "")
+                {
+                    str = str + "P.[Bill_No] LIKE ISNULL('" + txtAdm_SaleCustBillNo_Search.Text.Trim() + "',P.[Bill_No]) + '%' AND ";
+                }
+                if (txtAdm_SaleCustDetails_Search.Text.Trim() != "")
+                {
+                    str = str + "C.[Name] LIKE ISNULL('" + txtAdm_SaleCustDetails_Search.Text.Trim() + "',C.[Name]) + '%' AND ";
+                }
+                if (txtAdm_SaleCustMobileNo_Search.Text.Trim() != "")
+                {
+                    str = str + "C.[Mobile_No] LIKE ISNULL('" + txtAdm_SaleCustMobileNo_Search.Text.Trim() + "',C.[Mobile_No]) + '%' AND ";
+                }
+                str = str + " P.[S_Status] = 'Active' ORDER BY P.[Bill_No] ASC ";
+                //str = str + " S_Status = 'Active' ";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                dgvAdm_SaleCustomerDetails.ItemsSource = ds.Tables[0].DefaultView;
+                //}
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void SaleCustomer_ProductDetails()
+        {
+            try
+            {
+                String str;
+                //con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT P.[ID],P.[Domain_ID],P.[Product_ID],P.[Brand_ID],P.[P_Category],P.[Model_No_ID],P.[Color_ID],P.[Price] " +
+                      ",DM.[Domain_Name],PM.[Product_Name], B.[Brand_Name] , PC.[Product_Category] ,MN.[Model_No] ,C.[Color] " +
+                      "FROM [tlb_InvoiceDetails] P " +
+                      "INNER JOIN [tb_Domain] DM ON DM.[ID]=P.[Domain_ID] " +
+                      "INNER JOIN [tlb_Products] PM ON PM.[ID]=P.[Product_ID] " +
+                      "INNER JOIN [tlb_Brand] B ON B.[ID]=P.[Brand_ID] " +
+                      "INNER JOIN [tlb_P_Category] PC ON PC.[ID]=P.[P_Category]" +
+                      "INNER JOIN [tlb_Model] MN ON MN.[ID]=P.[Model_No_ID] " +
+                      "INNER JOIN [tlb_Color] C ON C.[ID]=P.[Color_ID] " +
+                      "WHERE ";
+
+                if (txtAdm_SaleCustBillNo_Search.Text.Trim() != "")
+                {
+                    str = str + "P.[Bill_No] LIKE ISNULL('" + txtAdm_SaleCustBillNo_Search.Text.Trim() + "',P.[Bill_No]) + '%' AND ";
+                }
+                if (txtAdm_SaleCustDetails_Search.Text.Trim() != "")
+                {
+                    str = str + "C.[Name] LIKE ISNULL('" + txtAdm_SaleCustDetails_Search.Text.Trim() + "',C.[Name]) + '%' AND ";
+                }
+                if (txtAdm_SaleCustMobileNo_Search.Text.Trim() != "")
+                {
+                    str = str + "C.[Mobile_No] LIKE ISNULL('" + txtAdm_SaleCustMobileNo_Search.Text.Trim() + "',C.[Mobile_No]) + '%' AND ";
+                }
+                str = str + " P.[S_Status] = 'Active' ORDER BY P.[Bill_No] ASC ";
+                //str = str + " S_Status = 'Active' ";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                dgvAdm_SaleCustomerDetails.ItemsSource = ds.Tables[0].DefaultView;
+                //}
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void smviewsalerecords_Click(object sender, RoutedEventArgs e)
+        {
+            grd_SaleCustDetails.Visibility = System.Windows.Visibility.Visible;
+
+            SaleCustomer_Details();
+
+        }
+
+        private void btnAdm_SaleCustDetails_Exit_Click(object sender, RoutedEventArgs e)
+        {
+            grd_SaleCustDetails.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void btnAdm_SaleCustDetails_Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            txtAdm_SaleCustBillNo_Search.Text = "";
+            txtAdm_SaleCustDetails_Search.Text = "";
+            txtAdm_SaleCustMobileNo_Search.Text = "";
+            SaleCustomer_Details();
+        }
+
     }
 }
 
