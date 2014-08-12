@@ -3900,6 +3900,12 @@ namespace CRM_User_Interface {
             return;
             case 266:
             this.cmbInstall_CustID = ((System.Windows.Controls.ComboBox)(target));
+            
+            #line 771 "..\..\CRM_MainForm.xaml"
+            this.cmbInstall_CustID.SelectionChanged += new System.Windows.Controls.SelectionChangedEventHandler(this.cmbInstall_CustID_SelectionChanged);
+            
+            #line default
+            #line hidden
             return;
             case 267:
             this.btnInstall_Refresh = ((System.Windows.Controls.Button)(target));
