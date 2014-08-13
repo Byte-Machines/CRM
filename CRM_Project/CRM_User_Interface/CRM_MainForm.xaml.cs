@@ -3457,10 +3457,16 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             if (pm_c == "Cash")
                     {
                         binvd.Payment_Mode = "Cash";
+                        binvd.Total_Price = Convert.ToDouble(txtInvoice_C_PaidAmount.Text);
+                        binvd.Paid_Amount = Convert.ToDouble(txtInvoice_C_PaidAmount.Text);
+                        binvd.Balance_Amount = Convert.ToDouble(txtInvoice_C_BalanceAmount.Text);
                     }
                     else if (pm_ch =="Cheque")
                     {
                          binvd.Payment_Mode = "Cheque";
+                         binvd.Total_Price = Convert.ToDouble(btnInvoice_CH_InvcTAmount.Text);
+                         binvd.Paid_Amount =0 ;
+                         binvd.Balance_Amount = 0;
                     }
                     else if( pm_f =="Finance")
                     {
@@ -3469,6 +3475,9 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
                     else if(pm_ins =="Installment")
                     {
                         binvd .Payment_Mode ="Installment";
+                        binvd.Total_Price = Convert.ToDouble(txtInvoice_InstalTotalAmount.Text);
+                        binvd.Paid_Amount = Convert.ToDouble(txtInvoice_InstalPaidAmount.Text);
+                        binvd.Balance_Amount = Convert.ToDouble(txtInvoice_InstalBalanceAmount.Text);
                     }
             binvd.S_Status = "Active";
             binvd.C_Date = System.DateTime.Now.ToShortDateString();
@@ -3691,7 +3700,8 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                String str;
+                String str,str1;
+                str1 = cmbInstall_CustID.SelectedValue.ToString () ;
                 //con.Open();
                 DataSet ds = new DataSet();
                 str = "SELECT tlb_MainInstallment.ID  ,tlb_Customer.Cust_ID,tlb_Customer.Name ,tlb_MainInstallment.Bill_No ,tlb_MainInstallment.Total_Price ,tlb_MainInstallment.Paid_Amount " +
@@ -3702,14 +3712,18 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
                // str = "SELECT [ID],[DealerEntryID],[CompanyName],[DealerFirstName] + ' ' + [DealerLastName] AS [DealerName],[DateOfBirth],[MobileNo],[PhoneNo],[DealerAddress] " +
                             // "FROM [tbl_DealerEntry] " +
                              "WHERE ";
-                if (txtInstall_CustName.Text.Trim() != "")
+                //if (txtInstall_CustName.Text.Trim() != "")
+                //{
+                //    str = str + "tlb_Customer.Name LIKE ISNULL('" + txtInstall_CustName.Text.Trim() + "',tlb_Customer.Name) + '%' AND ";
+                //}
+                if (cmbInstall_CustID.Text != "--Select--")
                 {
-                    str = str + "tlb_Customer.Name LIKE ISNULL('" + txtInstall_CustName.Text.Trim() + "',tlb_Customer.Name) + '%' AND ";
+                    str = str + " tlb_Customer.Cust_ID LIKE ISNULL('" + cmbInstall_CustID.SelectedValue .ToString ().Trim () + "',tlb_Customer.Cust_ID) + '%' AND ";
                 }
-                if (cmbInstall_CustID.Text !="--Select--")
-                {
-                    str = str + " tlb_Customer.Cust_ID LIKE ISNULL('" + cmbInstall_CustID.Text.Trim() + "',tlb_Customer.Cust_ID) + '%' AND ";
-                }
+                //if (cmbInstall_CustID.Text ==str1 )
+                //{
+                //    str = str + " tlb_Customer.Cust_ID LIKE ISNULL('" + cmbInstall_CustID.Text.Trim() + "',tlb_Customer.Cust_ID) + '%' AND ";
+                //}
                 //if (cmbInstall_Year_Month.Text .Trim() != string.Empty)
                 //{
                 //    str = str + "[MobileNo] LIKE ISNULL('" + cmbInstall_Year_Month.Text.Trim() + "',MobileNo) + '%' AND ";

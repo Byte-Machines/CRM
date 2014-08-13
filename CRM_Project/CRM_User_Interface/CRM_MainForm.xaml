@@ -481,7 +481,15 @@
 
 
             </Grid>
+<<<<<<< HEAD
             <Grid HorizontalAlignment="Left" Height="565" Margin="20,65,0,0" Name="GRD_Sales"  Visibility="Visible"    VerticalAlignment="Top" Width="1164" Background="#FFF0F0F0">
+=======
+
+            
+
+            <Grid HorizontalAlignment="Left" Height="565" Margin="24,65,0,0" Name="GRD_Sales"  Visibility="Hidden"     VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
+
+>>>>>>> origin/master
 
                 <!--<Grid HorizontalAlignment="Left" Height="565" Margin="24,65,0,0" Name="GRD_Sales1"  Visibility="Hidden" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">-->
 
@@ -545,11 +553,13 @@
                         <ComboBox x:Name="cmbsalecustomerftype" HorizontalAlignment="Left" VerticalAlignment="Top" Width="165" Margin="940,63,0,0" IsEditable="True" IsReadOnly="True" SelectionChanged="cmbsalecustomerftype_SelectionChanged" Grid.ColumnSpan="2"/>
                         <Button x:Name="btnsaleExit" Content="Exit" HorizontalAlignment="Left" Margin="95,10,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.867,0.75" Click="btnsaleExit_Click" Grid.Column="1"/>
 
+                        
+
                     </Grid>
                 </Grid>
-                <Grid HorizontalAlignment="Left" Name="GRD_Customer_Billing" Height="436" VerticalAlignment="Top"  Visibility="Hidden"     Width="1125" Margin="16,110,0,0" Background="#FFF0F0F0">
+                <Grid HorizontalAlignment="Left" Name="GRD_Customer_Billing" Height="436" VerticalAlignment="Top"  Visibility="Visible"      Width="1125" Margin="16,110,0,0" Background="#FFF0F0F0">
 
-                    <Grid HorizontalAlignment="Left" Visibility="Visible"  Name="GRD_Customer_Billing1" Height="436" VerticalAlignment="Top"  Width="1125" Margin="5,0,-5,0" Background="#FFF0F0F0">
+                    <Grid HorizontalAlignment="Left" Visibility="Hidden"   Name="GRD_Customer_Billing1" Height="436" VerticalAlignment="Top"  Width="1125" Margin="5,0,-5,0" Background="#FFF0F0F0">
 
                         <TextBox HorizontalAlignment="Left" Height="20" Margin="225,85,0,0"  TextWrapping="Wrap" Name="txtvalueid" Text="" VerticalAlignment="Top" Width="250"/>
                         <Label Content="Customer ID :" HorizontalAlignment="Left" Margin="95,75,0,0" VerticalAlignment="Top" Width="90"/>
@@ -819,7 +829,11 @@
                 </Grid>
 
             </Grid>
-            <Grid HorizontalAlignment="Left" Name="GRD_Installment" Visibility="Hidden"  Height="564" VerticalAlignment="Top" Width="1159" Margin="21,66,0,0" Background="#FFF0F0F0">
+
+            
+
+            <Grid HorizontalAlignment="Left" Name="GRD_Installment" Visibility="Visible"   Height="564" VerticalAlignment="Top" Width="1159" Margin="21,66,0,0" Background="#FFF0F0F0">
+
                 <Grid HorizontalAlignment="Left" Height="535" VerticalAlignment="Top" Width="1130" Margin="10,15,0,0" Background="White">
                     <GroupBox Header="Customer Search" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="1110" Height="73">
                         <Grid HorizontalAlignment="Left" Width="1100" Margin="0,0,-2,-4" Height="55" VerticalAlignment="Top">
@@ -892,11 +906,14 @@
                         </Grid>
                     </Grid>
 
+
+
                 </Grid>
 
+
             </Grid>
-
-
+    
+           
         </Grid>
     </Border>
 </Window>
