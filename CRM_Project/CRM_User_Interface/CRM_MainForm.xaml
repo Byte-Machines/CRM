@@ -746,7 +746,7 @@
 
                             </Grid>
                         </GroupBox>
-                        <Grid HorizontalAlignment="Left"  Name="GRDInvoce_Cash" Height="165" Visibility="Hidden" Margin="370,345,0,0" VerticalAlignment="Top" Width="530" Background="#FFF0F0F0" Grid.ColumnSpan="2">
+                        <Grid HorizontalAlignment="Left"  Name="GRDInvoce_Cash" Height="165" Visibility="Visible"  Margin="370,345,0,0" VerticalAlignment="Top" Width="530" Background="#FFF0F0F0" Grid.ColumnSpan="2">
                             <Label Content="Invoice Total Amount :" HorizontalAlignment="Left" Margin="11,35,0,0" VerticalAlignment="Top"/>
                             <Label Content="Paid Amount :" HorizontalAlignment="Left" Margin="211,36,0,0" VerticalAlignment="Top"/>
                             <Label Content="Balance Amount :" HorizontalAlignment="Left" Margin="367,33,0,0" VerticalAlignment="Top"/>
@@ -781,7 +781,7 @@
                         <Grid x:Name="GRDInvoice_Finance" Visibility="Hidden"    HorizontalAlignment="Left" Height="220" VerticalAlignment="Top" Width="655" Margin="380,305,0,0" Background="#FFF0F0F0" Grid.ColumnSpan="2">
 
                         </Grid>
-                        <Grid x:Name="GRDInvoice_Installment" Visibility="Visible"     HorizontalAlignment="Left" Height="285" VerticalAlignment="Top" Width="715" Margin="380,255,0,0" Background="#FFD8F2D6" Grid.ColumnSpan="2">
+                        <Grid x:Name="GRDInvoice_Installment" Visibility="Hidden"      HorizontalAlignment="Left" Height="285" VerticalAlignment="Top" Width="715" Margin="380,255,0,0" Background="#FFD8F2D6" Grid.ColumnSpan="2">
 
                             <Label Content="Installment" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="330,-1,0,0" FontSize="14" FontWeight="Bold"/>
                             <Label Content="Invoice Total Amount :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,38,0,0"/>

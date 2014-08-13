@@ -2782,7 +2782,7 @@ namespace CRM_User_Interface
             else if (rdo_Invoice_Yearlyinstallment.IsChecked == false )
             {
                 loadyear();
-                txtInvoice_Instal_InstalAmountPermonth.Text = "";
+                txtInvoice_InstalAmountPermonth.Text = "";
 
             }
         }
@@ -2798,7 +2798,7 @@ namespace CRM_User_Interface
             else if(rdoInvoice_rdo_Invoice_Monthlyinstallment.IsChecked ==false )
             {
                 loadMonth();
-                txtInvoice_Instal_InstalAmountPermonth.Text = "";
+                txtInvoice_InstalAmountPermonth.Text = "";
 
             }
 
@@ -2876,7 +2876,7 @@ namespace CRM_User_Interface
            
              double balamt =Convert .ToDouble ( txtInvoice_InstalBalanceAmount.Text);
             double calculateamt=Convert .ToDouble(balamt / y1);
-            txtInvoice_Instal_InstalAmountPermonth.Text = Microsoft.VisualBasic.Strings.Format(calculateamt, "##,###.00");
+            txtInvoice_InstalAmountPermonth.Text = Microsoft.VisualBasic.Strings.Format(calculateamt, "##,###.00");
            
         }
 
@@ -2933,7 +2933,7 @@ namespace CRM_User_Interface
             }
             double balamt2 = Convert.ToDouble(txtInvoice_InstalBalanceAmount.Text);
             double calculateamt2 = Convert.ToDouble(balamt2 / m1);
-            txtInvoice_Instal_InstalAmountPermonth.Text = Microsoft.VisualBasic.Strings.Format(calculateamt2, "##,###.00");
+            txtInvoice_InstalAmountPermonth.Text = Microsoft.VisualBasic.Strings.Format(calculateamt2, "##,###.00");
         }
 
         private void btnInvoice_MainExit_Click(object sender, RoutedEventArgs e)
