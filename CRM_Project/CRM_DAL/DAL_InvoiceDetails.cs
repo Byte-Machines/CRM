@@ -68,6 +68,9 @@ namespace CRM_DAL
                cmd.Parameters.AddWithValue("@Customer_ID", balid.Customer_ID);
                cmd.Parameters.AddWithValue("@Bill_No", balid.Bill_No);
                cmd.Parameters.AddWithValue("@Payment_Mode", balid.Payment_Mode);
+               cmd.Parameters.AddWithValue("@Total_Price", balid.Total_Price);
+               cmd.Parameters.AddWithValue("@Paid_Amount", balid.Paid_Amount);
+               cmd.Parameters.AddWithValue("@Balance_Amount", balid.Balance_Amount);
                cmd.Parameters.AddWithValue("@S_Status", balid.S_Status);
                cmd.Parameters.AddWithValue("@C_Date", balid.C_Date);
                int i = cmd.ExecuteNonQuery();

@@ -3454,10 +3454,16 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             if (pm_c == "Cash")
                     {
                         binvd.Payment_Mode = "Cash";
+                        binvd.Total_Price = Convert.ToDouble(txtInvoice_C_PaidAmount.Text);
+                        binvd.Paid_Amount = Convert.ToDouble(txtInvoice_C_PaidAmount.Text);
+                        binvd.Balance_Amount = Convert.ToDouble(txtInvoice_C_BalanceAmount.Text);
                     }
                     else if (pm_ch =="Cheque")
                     {
                          binvd.Payment_Mode = "Cheque";
+                         binvd.Total_Price = Convert.ToDouble(btnInvoice_CH_InvcTAmount.Text);
+                         binvd.Paid_Amount =0 ;
+                         binvd.Balance_Amount = 0;
                     }
                     else if( pm_f =="Finance")
                     {
@@ -3466,6 +3472,9 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
                     else if(pm_ins =="Installment")
                     {
                         binvd .Payment_Mode ="Installment";
+                        binvd.Total_Price = Convert.ToDouble(txtInvoice_InstalTotalAmount.Text);
+                        binvd.Paid_Amount = Convert.ToDouble(txtInvoice_InstalPaidAmount.Text);
+                        binvd.Balance_Amount = Convert.ToDouble(txtInvoice_InstalBalanceAmount.Text);
                     }
             binvd.S_Status = "Active";
             binvd.C_Date = System.DateTime.Now.ToShortDateString();
