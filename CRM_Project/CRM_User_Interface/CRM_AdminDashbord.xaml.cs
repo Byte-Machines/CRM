@@ -1805,6 +1805,7 @@ namespace CRM_User_Interface
             
         }
 
+        #region SaleCustomerDet Function
         public void SaleCustomer_Details()
         {
             try
@@ -1812,14 +1813,10 @@ namespace CRM_User_Interface
                 String str;
                 //con.Open();
                 DataSet ds = new DataSet();
-                str = "SELECT P.[ID],P.[Customer_ID],P.[Bill_No],P.[Payment_Mode] " +
+                str = "SELECT P.[ID],P.[Customer_ID],P.[Bill_No],P.[Payment_Mode],P.[Total_Price],P.[Paid_Amount],P.[Balance_Amount],P.[C_Date] " +
                       ",C.[Name],C.[Mobile_No], C.[Email_ID] " +
-                      ",CA.[Customer_ID],CA.[Total_Price],CA.[Paid_Amount],CA.[Balance_Amount] " +
-                      ",CC.[Customer_ID] " + 
                       "FROM [tlb_Bill_No] P " +
                       "INNER JOIN [tlb_Customer] C ON C.[ID]=P.[Customer_ID] " +
-                      "INNER JOIN [tlb_Cash] CA ON CA.[Customer_ID]=P.[Customer_ID] " +
-                      "INNER JOIN [tlb_Cheque] CC ON CC.[Customer_ID]=P.[Customer_ID] " +
                       "WHERE ";
 
                 if (txtAdm_SaleCustBillNo_Search.Text.Trim() != "")
@@ -1862,7 +1859,7 @@ namespace CRM_User_Interface
                 String str;
                 //con.Open();
                 DataSet ds = new DataSet();
-                str = "SELECT P.[ID],P.[Domain_ID],P.[Product_ID],P.[Brand_ID],P.[P_Category],P.[Model_No_ID],P.[Color_ID],P.[Price] " +
+                str = "SELECT P.[ID],P.[Customer_ID],P.[Domain_ID],P.[Product_ID],P.[Brand_ID],P.[P_Category],P.[Model_No_ID],P.[Color_ID],P.[Per_Product_Price],P.[Qty],P.[C_Price] " +
                       ",DM.[Domain_Name],PM.[Product_Name], B.[Brand_Name] , PC.[Product_Category] ,MN.[Model_No] ,C.[Color] " +
                       "FROM [tlb_InvoiceDetails] P " +
                       "INNER JOIN [tb_Domain] DM ON DM.[ID]=P.[Domain_ID] " +
@@ -1871,29 +1868,14 @@ namespace CRM_User_Interface
                       "INNER JOIN [tlb_P_Category] PC ON PC.[ID]=P.[P_Category]" +
                       "INNER JOIN [tlb_Model] MN ON MN.[ID]=P.[Model_No_ID] " +
                       "INNER JOIN [tlb_Color] C ON C.[ID]=P.[Color_ID] " +
-                      "WHERE ";
-
-                if (txtAdm_SaleCustBillNo_Search.Text.Trim() != "")
-                {
-                    str = str + "P.[Bill_No] LIKE ISNULL('" + txtAdm_SaleCustBillNo_Search.Text.Trim() + "',P.[Bill_No]) + '%' AND ";
-                }
-                if (txtAdm_SaleCustDetails_Search.Text.Trim() != "")
-                {
-                    str = str + "C.[Name] LIKE ISNULL('" + txtAdm_SaleCustDetails_Search.Text.Trim() + "',C.[Name]) + '%' AND ";
-                }
-                if (txtAdm_SaleCustMobileNo_Search.Text.Trim() != "")
-                {
-                    str = str + "C.[Mobile_No] LIKE ISNULL('" + txtAdm_SaleCustMobileNo_Search.Text.Trim() + "',C.[Mobile_No]) + '%' AND ";
-                }
-                str = str + " P.[S_Status] = 'Active' ORDER BY P.[Bill_No] ASC ";
-                //str = str + " S_Status = 'Active' ";
+                      "WHERE P.[Customer_ID]= '" + Convert.ToInt32(txtSaleCustID.Text) + "' AND P.[S_Status] = 'Active' ORDER BY P.[Bill_No] ASC ";
                 SqlCommand cmd = new SqlCommand(str, con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(ds);
 
                 //if (ds.Tables[0].Rows.Count > 0)
                 //{
-                dgvAdm_SaleCustomerDetails.ItemsSource = ds.Tables[0].DefaultView;
+                dgvAdm_SaleCustomer_ProductDetails.ItemsSource = ds.Tables[0].DefaultView;
                 //}
             }
             catch (Exception)
@@ -1914,6 +1896,7 @@ namespace CRM_User_Interface
 
         }
 
+        #region SalecustDet Button Event
         private void btnAdm_SaleCustDetails_Exit_Click(object sender, RoutedEventArgs e)
         {
             grd_SaleCustDetails.Visibility = System.Windows.Visibility.Hidden;
@@ -1924,14 +1907,77 @@ namespace CRM_User_Interface
             txtAdm_SaleCustBillNo_Search.Text = "";
             txtAdm_SaleCustDetails_Search.Text = "";
             txtAdm_SaleCustMobileNo_Search.Text = "";
+            dgvAdm_SaleCustomerDetails.ItemsSource = null;
+            dgvAdm_SaleCustomer_ProductDetails.ItemsSource = null;
             SaleCustomer_Details();
         }
+        #endregion SalecustDet Button Event
 
         private void cmbAdm_DealerFilter_Search_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
+       
 
+        #region SaleCustomerDetails Event 
+        private void txtAdm_SaleCustBillNo_Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //txtSaleCustID.Text = "";
+            //dgvAdm_SaleCustomer_ProductDetails.ItemsSource = null;
+            SaleCustomer_Details();
+        }
+
+        private void txtAdm_SaleCustDetails_Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //txtSaleCustID.Text = "";
+            //dgvAdm_SaleCustomer_ProductDetails.ItemsSource = null;
+            //dgvAdm_SaleCustomerDetails.SelectedIndex = 0;
+            SaleCustomer_Details();
+        }
+
+        private void txtAdm_SaleCustMobileNo_Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //txtSaleCustID.Text = "";
+            //dgvAdm_SaleCustomer_ProductDetails.ItemsSource = null;
+            SaleCustomer_Details();
+        }
+
+        private void dgvAdm_SaleCustomerDetails_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            object item = dgvAdm_SaleCustomerDetails.SelectedItem;
+            string ID = (dgvAdm_SaleCustomerDetails.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
+            //MessageBox.Show(ID);
+            try
+            {
+                con.Open();
+                string sqlquery = "SELECT [ID],[Customer_ID] " +
+                      "FROM [tlb_Bill_No] " +
+                      "WHERE [Bill_No]='" + ID + "' ";
+
+                SqlCommand cmd = new SqlCommand(sqlquery, con);
+                SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adp.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    txtSaleCustID.Text = dt.Rows[0]["Customer_ID"].ToString();
+                }
+
+                //grd_FinalizeProducts.Visibility = System.Windows.Visibility.Visible;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            SaleCustomer_ProductDetails();
+        }
+        #endregion SaleCustomerDetails Event
+        #endregion SaleCustomerDet Function
     }
 }
 

@@ -2166,6 +2166,7 @@ namespace CRM_User_Interface
                 load_Followup_type();
                 FetchallDetails();
 
+                grd_OldCustomerDetails.Visibility = System.Windows.Visibility.Hidden;
                
             }
         }
