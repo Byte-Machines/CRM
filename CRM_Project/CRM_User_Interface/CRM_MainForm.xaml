@@ -481,7 +481,7 @@
 
 
             </Grid>
-            <Grid HorizontalAlignment="Left" Height="565" Margin="24,65,0,0" Name="GRD_Sales"  Visibility="Visible"    VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
+            <Grid HorizontalAlignment="Left" Height="565" Margin="20,65,0,0" Name="GRD_Sales"  Visibility="Visible"    VerticalAlignment="Top" Width="1164" Background="#FFF0F0F0">
 
                 <!--<Grid HorizontalAlignment="Left" Height="565" Margin="24,65,0,0" Name="GRD_Sales1"  Visibility="Hidden" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">-->
 
@@ -520,7 +520,7 @@
                     <TextBox x:Name="txtsalesearchcname" HorizontalAlignment="Left" Height="25" Margin="156,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" IsEnabled="False" TextChanged="txtsalesearchcname_TextChanged" KeyDown="txtsalesearchcname_KeyDown"/>
                     <Label Content="Enter Customer Name:" HorizontalAlignment="Left" Margin="21,59,0,0" VerticalAlignment="Top" Width="144"/>
                     <Label Content="Enter Customer Phone No:" HorizontalAlignment="Left" Margin="435,59,0,0" VerticalAlignment="Top" Width="155"/>
-                    <TextBox x:Name="txtSalecustomerno" HorizontalAlignment="Left" Height="25" Margin="590,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" IsEnabled="False" TextChanged="txtSalecustomerno_TextChanged"/>
+                    <TextBox x:Name="txtSalecustomerno" HorizontalAlignment="Left" Height="25" Margin="591,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" IsEnabled="False" TextChanged="txtSalecustomerno_TextChanged"/>
                     <DataGrid x:Name="DGRD_SaleCustomer" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Height="430" Width="1110" SelectionChanged="DataGrid_SelectionChanged" IsEnabled="False" Visibility="Hidden"  AutoGenerateColumns="False" Grid.ColumnSpan="2"/>
 
                     <Grid HorizontalAlignment="Left" Visibility="Hidden" Name="GRD_SaleCustomer" Height="420" VerticalAlignment="Top" Width="1100" Margin="15,105,0,0" Background="White">
@@ -578,6 +578,56 @@
                         <Button x:Name="btnSaleCustomerEditoccu" Content="Edit" HorizontalAlignment="Left" Margin="975,237,0,0" VerticalAlignment="Top" Width="65" Height="28" FontSize="14" Click="btnSaleCustomerEditoccu_Click" IsEnabled="False"/>
                         <Label x:Name="lblfollowupidfetch" Content="" HorizontalAlignment="Left" Margin="485,75,0,0" VerticalAlignment="Top" Width="90"/>
                     </Grid>
+                </Grid>
+                <Grid x:Name="grd_OldCustomerDetails" Visibility="Hidden" HorizontalAlignment="Left" Height="510" Margin="10,55,0,0" VerticalAlignment="Top" Width="1140" Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="191*"/>
+                        <ColumnDefinition Width="38*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid x:Name="DGRD_SaleCustomer2" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Height="430" Width="1110" SelectionChanged="DataGrid_SelectionChanged" IsEnabled="False" Visibility="Hidden"  AutoGenerateColumns="False" Grid.ColumnSpan="2"/>
+
+                    <Grid HorizontalAlignment="Left" Visibility="Hidden" x:Name="GRD_SaleCustomer1" Height="420" VerticalAlignment="Top" Width="1100" Margin="15,105,0,0" Background="White">
+                        <DataGrid >
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="IsInterested" x:Name="isInterested3" >
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Checked="CheckBox_Checked" x:Name="chkisinterested" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <TextBox x:Name="txtsalesearchcname3" HorizontalAlignment="Left" Height="25" Margin="156,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" IsEnabled="False" TextChanged="txtsalesearchcname_TextChanged" KeyDown="txtsalesearchcname_KeyDown"/>
+                        <Label Content="Enter Customer Name:" HorizontalAlignment="Left" Margin="21,59,0,0" VerticalAlignment="Top" Width="144"/>
+                        <Label Content="Enter Customer Phone No:" HorizontalAlignment="Left" Margin="435,59,0,0" VerticalAlignment="Top" Width="155"/>
+                        <TextBox x:Name="txtSalecustomerno3" HorizontalAlignment="Left" Height="25" Margin="590,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" IsEnabled="False" TextChanged="txtSalecustomerno_TextChanged"/>
+                        <DataGrid x:Name="DGRD_SaleCustomer3" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Height="430" Width="1110" SelectionChanged="DataGrid_SelectionChanged" IsEnabled="False" Visibility="Hidden"  AutoGenerateColumns="False" Grid.ColumnSpan="2"/>
+
+                        <Label Content="Select Followup Type :" HorizontalAlignment="Left" Margin="800,60,0,0" VerticalAlignment="Top" Width="155"/>
+                        <ComboBox x:Name="cmbsalecustomerftype1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="165" Margin="940,63,0,0" IsEditable="True" IsReadOnly="True" SelectionChanged="cmbsalecustomerftype_SelectionChanged" Grid.ColumnSpan="2"/>
+                        <Button x:Name="btnsaleExit1" Content="Exit" HorizontalAlignment="Left" Margin="95,10,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.867,0.75" Click="btnsaleExit_Click" Grid.Column="1"/>
+
+                    </Grid>
+                    <DataGrid x:Name="dgv_OldCustomerDetails" Margin="0,65,0,0" VerticalAlignment="Top" Height="440" AutoGenerateColumns="False" RowHeight="25" Grid.ColumnSpan="2">
+                        <DataGrid.Columns>
+                            <!--<DataGridTextColumn Header="ID" Width="30"  x:Name="grdFinalPro_ID1" Visibility="Visible" SortMemberPath="ID" Binding="{Binding ID, Mode=TwoWay}" />-->
+                            <DataGridTextColumn Header="Customer Name" Width="337"  x:Name="grdFinalPro_Name3" SortMemberPath="Name" Binding="{Binding Name, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Mobile No" Width="120"  x:Name="grdFinalPro_MobileNo3" SortMemberPath="Mobile_No" Binding="{Binding Mobile_No, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Email_ID" Width="250"  x:Name="grdFinalPro_PhoneNo3" SortMemberPath="Email_ID" Binding="{Binding Email_ID, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Occupation" Width="130"  x:Name="grdFinalPro_Products23" SortMemberPath="Occupation" Binding="{Binding Occupation, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Address" Width="299"  x:Name="grdFinalPro_Products13" SortMemberPath="Address" Binding="{Binding Address, Mode=TwoWay}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <GroupBox x:Name="grp_OldCustomer_Search" Header="Search" HorizontalAlignment="Left" Margin="0,1,0,0" VerticalAlignment="Top" Width="1140" Height="60" Grid.ColumnSpan="2" BorderBrush="#FF3237A6" Background="White">
+                        <Grid HorizontalAlignment="Left" Height="39" Margin="0,1,-2,-2" VerticalAlignment="Top" Width="1130" Background="White">
+                            <Label Content="Customer Name:" HorizontalAlignment="Left" Margin="31,5,0,0" VerticalAlignment="Top" Width="102"/>
+                            <Label Content="Mobile No:" HorizontalAlignment="Left" Margin="485,5,0,0" VerticalAlignment="Top" Width="74"/>
+                            <Button x:Name="btnOldCustomer_Refresh" Content="Refresh" HorizontalAlignment="Left" Margin="959,7,0,0" VerticalAlignment="Top" Width="75" Click="btnOldCustomer_Refresh_Click" Height="24"/>
+                            <TextBox x:Name="txtOldCustomer_Search" HorizontalAlignment="Left" Height="23" Margin="134,7,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="340"/>
+                            <TextBox x:Name="txtOlad_CustomerMobile_Search" HorizontalAlignment="Left" Height="23" Margin="559,7,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="355"/>
+                        </Grid>
+                    </GroupBox>
                 </Grid>
 
             </Grid>

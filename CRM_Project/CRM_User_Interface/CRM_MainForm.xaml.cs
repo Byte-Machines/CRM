@@ -2618,6 +2618,9 @@ namespace CRM_User_Interface
             cmbsalecustomerftype.IsEnabled = false;
             DGRD_SaleCustomer.Visibility = Visibility;
             load_Followup_type();
+
+            grd_OldCustomerDetails.Visibility = System.Windows.Visibility.Visible;
+            OldCustomer_Details();
         }
 
         private void btnSaleCustomerEdit_Click(object sender, RoutedEventArgs e)
@@ -3735,6 +3738,70 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
         {
             DealerDetails_LoadData();
         }
+
+        #region Old Customer Details
+        public void OldCustomer_Details()
+        {
+            try
+            {
+                String str;
+                //con.Open();
+                DataSet ds = new DataSet();
+                str = "SELECT [ID],[Name],[Mobile_No], [Email_ID],[Address],[Occupation] " +
+                      "FROM [tlb_Customer]  " +
+                      "WHERE ";
+
+                if (txtOldCustomer_Search.Text.Trim() != "")
+                {
+                    str = str + "[Name] LIKE ISNULL('" + txtOldCustomer_Search.Text.Trim() + "',[Name]) + '%' AND ";
+                }
+                if (txtOlad_CustomerMobile_Search.Text.Trim() != "")
+                {
+                    str = str + "[Mobile_No] LIKE ISNULL('" + txtOldCustomer_Search.Text.Trim() + "',[Mobile_No]) + '%' AND ";
+                }
+                str = str + " [S_Status] = 'Active' ORDER BY [Name] ASC ";
+                //str = str + " S_Status = 'Active' ";
+                SqlCommand cmd = new SqlCommand(str, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                //if (ds.Tables[0].Rows.Count > 0)
+                //{
+                dgv_OldCustomerDetails.ItemsSource = ds.Tables[0].DefaultView;
+                //}
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        #region Old Cust Button Event
+        private void btnOldCustomer_Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            txtOldCustomer_Search.Text = "";
+            txtOlad_CustomerMobile_Search.Text = "";
+
+            OldCustomer_Details();
+        }
+        #endregion Old Cust Button Event
+
+        private void txtOlad_CustomerMobile_Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            OldCustomer_Details();
+        }
+        #endregion Old Customer Details
+
+        private void txtOldCustomer_Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            OldCustomer_Details();
+        }
+
+
     }
 
 }
