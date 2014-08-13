@@ -478,18 +478,10 @@
                     <RadioButton x:Name="rdoCCustom" Content="Custom :" HorizontalAlignment="Left" Margin="360,375,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.353,-0.667" GroupName="ne" Height="14" Width="81" Checked="rdoCCustom_Checked"/>
 
                 </Grid>
-
-
             </Grid>
-<<<<<<< HEAD
-            <Grid HorizontalAlignment="Left" Height="565" Margin="20,65,0,0" Name="GRD_Sales"  Visibility="Visible"    VerticalAlignment="Top" Width="1164" Background="#FFF0F0F0">
-=======
-
-            
-
             <Grid HorizontalAlignment="Left" Height="565" Margin="24,65,0,0" Name="GRD_Sales"  Visibility="Hidden"     VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">
 
->>>>>>> origin/master
+
 
                 <!--<Grid HorizontalAlignment="Left" Height="565" Margin="24,65,0,0" Name="GRD_Sales1"  Visibility="Hidden" VerticalAlignment="Top" Width="1160" Background="#FFF0F0F0">-->
 
@@ -915,5 +907,8 @@
     
            
         </Grid>
-    </Border>
+            
+   
+        </Border>
+       
 </Window>
