@@ -3594,7 +3594,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             bins.Total_Price = Convert.ToDouble(txtInvoice_InstalTotalAmount.Text);
             bins.Paid_Amount = Convert.ToDouble(txtInvoice_InstalPaidAmount.Text);
             bins.Balance_Amount = Convert.ToDouble(txtInvoice_InstalBalanceAmount.Text);
-            bins.Monthly_Amount = Convert.ToDouble(txtInvoice_Instal_InstalAmountPermonth.Text);
+            bins.Monthly_Amount = Convert.ToDouble(txtInvoice_InstalAmountPermonth.Text);
             if (rdo_Invoice_Yearlyinstallment.IsChecked ==true )
             {string yearins=cmdInvoice_InstalYear.SelectedValue.ToString();
             
@@ -3821,21 +3821,20 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             {
                 object item = DGRD_InstallmentCust.SelectedItem;
                 string ID = (DGRD_InstallmentCust.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
+                string cid = (DGRD_InstallmentCust.SelectedCells[1].Column.GetCellContent(item) as TextBlock).Text;
+                string CName = (DGRD_InstallmentCust.SelectedCells[2].Column.GetCellContent(item) as TextBlock).Text;
+                double TP =Convert .ToDouble((DGRD_InstallmentCust.SelectedCells[4].Column.GetCellContent(item) as TextBlock).Text);
+                double PA = Convert.ToDouble((DGRD_InstallmentCust.SelectedCells[5].Column.GetCellContent(item) as TextBlock).Text);
+                double BA = Convert.ToDouble((DGRD_InstallmentCust.SelectedCells[6].Column.GetCellContent(item) as TextBlock).Text);
+                double MA = Convert.ToDouble((DGRD_InstallmentCust.SelectedCells[7].Column.GetCellContent(item) as TextBlock).Text);
                 MessageBox.Show(ID);
                 GRD_InstallmentProcess.Visibility = Visibility;
-                DataTable dt = new DataTable();
-                cmd = new SqlCommand("Select Tax_Type ,Tax_Percentage  from tlb_AddTax where ID='" + ID + "'", con);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                // con.Open();
-                da.Fill(dt);
-
-                if (dt.Rows.Count > 0)
-                {
-                    // DGRD_SaleFollowup.ItemsSource = ds.Tables[0].DefaultView;
-                  //  txtTax_TName.Text = dt.Rows[0]["Tax_Type"].ToString();
-                 //   txtTax_TPercent.Text = dt.Rows[0]["Tax_Percentage"].ToString();
-
-                }
+                lbl_Instal_CustomerID.Content = cid;
+                txt_InstalCustomerName.Text = CName;
+                txt_InstalTotalAmount.Text = TP.ToString ();
+                txt_InstalPaidAmount.Text = PA.ToString();
+                txt_InstalBalanceAmount.Text = BA.ToString();
+                txtInstalAmountPermonth.Text = MA.ToString();
             }
             catch (Exception)
             {

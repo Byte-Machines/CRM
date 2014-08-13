@@ -634,7 +634,7 @@
                 </Grid>
 
             </Grid>
-            <Grid HorizontalAlignment="Right" Visibility="Hidden"    Name="Grd_genratebill" Height="565" Margin="0,55,13,0" VerticalAlignment="Top" Width="1160" Background="#FFEEEEF2" d:IsLocked="True">
+            <Grid HorizontalAlignment="Right" Visibility="Visible"     Name="Grd_genratebill" Height="565" Margin="0,55,13,0" VerticalAlignment="Top" Width="1160" Background="#FFEEEEF2">
                 <!--<Grid HorizontalAlignment="Right" Visibility="Visible"    x:Name="Grd_genratebill1" Height="565" Margin="-4,0,4,0" VerticalAlignment="Top" Width="1160" Background="#FFEEEEF2">
 
 
@@ -781,7 +781,7 @@
                         <Grid x:Name="GRDInvoice_Finance" Visibility="Hidden"    HorizontalAlignment="Left" Height="220" VerticalAlignment="Top" Width="655" Margin="380,305,0,0" Background="#FFF0F0F0" Grid.ColumnSpan="2">
 
                         </Grid>
-                        <Grid x:Name="GRDInvoice_Installment" Visibility="Hidden"    HorizontalAlignment="Left" Height="285" VerticalAlignment="Top" Width="715" Margin="380,255,0,0" Background="#FFD8F2D6" Grid.ColumnSpan="2">
+                        <Grid x:Name="GRDInvoice_Installment" Visibility="Visible"     HorizontalAlignment="Left" Height="285" VerticalAlignment="Top" Width="715" Margin="380,255,0,0" Background="#FFD8F2D6" Grid.ColumnSpan="2">
 
                             <Label Content="Installment" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="330,-1,0,0" FontSize="14" FontWeight="Bold"/>
                             <Label Content="Invoice Total Amount :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,38,0,0"/>
@@ -797,7 +797,7 @@
                             <ComboBox x:Name="cmdInvoice_InstalYear" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="125" Margin="270,115,0,0" IsEditable="True" SelectionChanged="cmdInvoice_InstalYear_SelectionChanged" IsReadOnly="True"/>
                             <ComboBox x:Name="cmdInvoice_InstalMonth" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="120" Margin="509,115,0,0" IsEditable="True" IsReadOnly="True" SelectionChanged="cmdInvoice_InstalMonth_SelectionChanged"/>
                             <Label Content="Installment Amount Of Per Month :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,154,0,0"/>
-                            <TextBox x:Name="txtInvoice_Instal_InstalAmountPermonth" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Margin="225,155,0,0"/>
+                            <TextBox x:Name="txtInvoice_InstalAmountPermonth" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Margin="225,155,0,0"/>
                             <DatePicker x:Name="dpInvoice_Instalpermonth" HorizontalAlignment="Left" Margin="230,196,0,0" VerticalAlignment="Top" Width="205" DisplayDate="2014-05-08"/>
                             <Button x:Name="btnInvoice_InstalSaveandPrint" Content="Save &amp; Print " HorizontalAlignment="Left" VerticalAlignment="Top" Width="115" Margin="264,245,0,0" Click="btnInvoice_InstalSaveandPrint_Click"/>
                             <Button x:Name="btnInvoice_InstalClear" Content="Clear" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="408,245,0,0"/>
@@ -825,9 +825,13 @@
 
 
 
-            <Grid HorizontalAlignment="Left" Name="GRD_Installment" Visibility="Visible" Height="564" VerticalAlignment="Top" Width="1159" Margin="21,66,0,0" Background="#FFF0F0F0">
+            <Grid HorizontalAlignment="Left" Name="GRD_Installment" Visibility="Hidden"  Height="564" VerticalAlignment="Top" Width="1159" Margin="21,66,0,0" Background="#FFF0F0F0">
 
                 <Grid HorizontalAlignment="Left" Height="535" VerticalAlignment="Top" Width="1130" Margin="10,15,0,0" Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1129*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
                     <GroupBox Header="Customer Search" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="1110" Height="73">
                         <Grid HorizontalAlignment="Left" Width="1100" Margin="0,0,-2,-4" Height="55" VerticalAlignment="Top">
                             <Grid.ColumnDefinitions>
@@ -844,20 +848,20 @@
                         </Grid>
                     </GroupBox>
                     <Label Content="Customer Installment" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="508,0,0,0" FontSize="16" FontWeight="Bold" Width="185"/>
-                    <DataGrid HorizontalAlignment="Left" Name="DGRD_InstallmentCust" Margin="0,100,0,0" VerticalAlignment="Top" Height="434" AutoGenerateColumns="False" Width="auto">
+                    <DataGrid HorizontalAlignment="Left" Name="DGRD_InstallmentCust" Margin="11,94,0,-3" VerticalAlignment="Top" Height="444" AutoGenerateColumns="False" Width="1108">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Width="30"  x:Name="grdC_ID" SortMemberPath="ID" Binding="{Binding ID, Mode=TwoWay}" />
-                            <DataGridTextColumn Header="Customer ID" x:Name="grdCInstCID" SortMemberPath="Cust_ID" Binding="{Binding Cust_ID, Mode=TwoWay}"/>
-                            <DataGridTextColumn Header="Customer Name" Width="200" x:Name="grdInstal_CustName" SortMemberPath="Name" Binding="{Binding Name, Mode=TwoWay}" />
-                            <DataGridTextColumn Header="Bill No" Width="200" x:Name="grdBillNo" SortMemberPath="Bill_No" Binding="{Binding Bill_No, Mode=TwoWay}"/>
-                            <DataGridTextColumn Header="Total_Price" Width="100" x:Name="grdCInstal_Totalprice" SortMemberPath="Total_Price" Binding="{Binding Total_Price, Mode=TwoWay}"/>
-                            <DataGridTextColumn Header="Paid_Amount" Width="150" x:Name="grdCInstall_PaidAmt" SortMemberPath="Paid_Amount" Binding="{Binding Paid_Amount, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Customer ID" Width="100" x:Name="grdCInstCID" SortMemberPath="Cust_ID" Binding="{Binding Cust_ID, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Customer Name" Width="100" x:Name="grdInstal_CustName" SortMemberPath="Name" Binding="{Binding Name, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Bill No" Width="80" x:Name="grdBillNo" SortMemberPath="Bill_No" Binding="{Binding Bill_No, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Total_Price" Width="120" x:Name="grdCInstal_Totalprice" SortMemberPath="Total_Price" Binding="{Binding Total_Price, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Paid_Amount" Width="120" x:Name="grdCInstall_PaidAmt" SortMemberPath="Paid_Amount" Binding="{Binding Paid_Amount, Mode=TwoWay}"/>
                             <DataGridTextColumn Header="Balance_Amount" Width="120" x:Name="grdCInstall_Balance" SortMemberPath="Balance_Amount" Binding="{Binding Balance_Amount, Mode=TwoWay}"/>
-                            <DataGridTextColumn Header="Monthly_Amount" Width="150" x:Name="grdCInstall_Monthlyamt" SortMemberPath="Monthly_Amount" Binding="{Binding Monthly_Amount, Mode=TwoWay}"/>
-                            <DataGridTextColumn Header="Year" Width="150" x:Name="grdCInstall_Year" SortMemberPath="Installment_Year" Binding="{Binding Installment_Year, Mode=TwoWay}"/>
-                            <DataGridTextColumn Header="Month" Width="150" x:Name="grdCInstall_Month" SortMemberPath="Installment_Month" Binding="{Binding Installment_Month, Mode=TwoWay}"/>
-                            <DataGridTextColumn Header="Installment_Date" Width="150" x:Name="grdCInstall_Date" SortMemberPath="Installment_Date" Binding="{Binding Installment_Date, Mode=TwoWay}"/>
-                            <DataGridTemplateColumn Header="Edit">
+                            <DataGridTextColumn Header="Monthly_Amount" Width="120" x:Name="grdCInstall_Monthlyamt" SortMemberPath="Monthly_Amount" Binding="{Binding Monthly_Amount, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Year" Width="60" x:Name="grdCInstall_Year" SortMemberPath="Installment_Year" Binding="{Binding Installment_Year, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Month" Width="60" x:Name="grdCInstall_Month" SortMemberPath="Installment_Month" Binding="{Binding Installment_Month, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Installment_Date" Width="110" x:Name="grdCInstall_Date" SortMemberPath="Installment_Date" Binding="{Binding Installment_Date, Mode=TwoWay}"/>
+                            <DataGridTemplateColumn Header="Edit" Width="80">
                                 <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate>
                                         <Button Content="Edit" x:Name="btndgv_InstEdit" Click="btndgv_InstEdit_Click"/>
@@ -894,7 +898,7 @@
 
 
                 </Grid>
-                <Grid HorizontalAlignment="Left" Name="GRD_InstallmentProcess" Visibility="Visible"   Width="875" Margin="254,225,0,24" Background="#FFF0F0F0">
+                <Grid HorizontalAlignment="Left" Name="GRD_InstallmentProcess" Visibility="Visible"     Width="875" Margin="254,219,0,30" Background="#FFF0F0F0">
                     <Grid HorizontalAlignment="Left" Width="855" Margin="10,10,0,0" Background="White" Height="295" VerticalAlignment="Top">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="294*"/>
@@ -904,9 +908,9 @@
                         <Label Content="Invoice Total Amount :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,85,0,0"/>
                         <Label Content="Total Paid Amount :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="410,84,0,0"/>
                         <TextBox x:Name="txt_InstalTotalAmount" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Margin="155,87,0,0"/>
-                        <TextBox x:Name="txt_InstalPaidAmount" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Margin="596,92,0,0" TextChanged="txtInvoice_InstalPaidAmount_TextChanged"/>
+                        <TextBox x:Name="txt_InstalPaidAmount" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Margin="596,92,0,0"/>
                         <Label Content="Total Balance Amount :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,124,0,0"/>
-                        <Label Content="Installment Date  :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="398,196,0,0" FontSize="14"/>
+                        <Label Content="Installment Date  :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="398,196,0,0"/>
                         <TextBox x:Name="txt_InstalBalanceAmount" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Margin="155,127,0,0"/>
                         <Label Content="Installment Amount :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,205,0,0"/>
                         <Label Content="Installment Amount Of Per Month :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="390,125,0,0"/>
