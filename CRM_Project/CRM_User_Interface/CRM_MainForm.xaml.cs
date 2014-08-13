@@ -3595,7 +3595,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             bins.Total_Price = Convert.ToDouble(txtInvoice_InstalTotalAmount.Text);
             bins.Paid_Amount = Convert.ToDouble(txtInvoice_InstalPaidAmount.Text);
             bins.Balance_Amount = Convert.ToDouble(txtInvoice_InstalBalanceAmount.Text);
-            bins.Monthly_Amount = Convert.ToDouble(txtInvoice_Instal_InstalAmountPermonth.Text);
+            bins.Monthly_Amount = Convert.ToDouble(txtInvoice_InstalAmountPermonth.Text);
             if (rdo_Invoice_Yearlyinstallment.IsChecked ==true )
             {string yearins=cmdInvoice_InstalYear.SelectedValue.ToString();
             
@@ -3671,7 +3671,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
         }
         public void Load_InstallmentCustomers()
         {
-            cmbInstall_CustID.Text = "--Select--";
+          //  cmbInstall_CustID.Text = "--Select--";
             string q = "SELECT tlb_MainInstallment.ID  ,tlb_Customer.Cust_ID,tlb_Customer.Name ,tlb_MainInstallment.Bill_No ,tlb_MainInstallment.Total_Price ,tlb_MainInstallment.Paid_Amount ,tlb_MainInstallment.Balance_Amount ,tlb_MainInstallment.Monthly_Amount,tlb_MainInstallment.Installment_Year ,tlb_MainInstallment.Installment_Month ,tlb_MainInstallment.Installment_Date FROM tlb_MainInstallment INNER JOIN tlb_Customer ON tlb_MainInstallment.Customer_ID =tlb_Customer.ID  and tlb_MainInstallment.S_Status='Active'";
             cmd = new SqlCommand(q, con);
             // DataTable dt = new DataTable();
@@ -3702,7 +3702,7 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
             try
             {
                 String str,str1;
-                str1 = cmbInstall_CustID.SelectedValue.ToString () ;
+                //str1 = cmbInstall_CustID.SelectedValue.ToString () ;
                 //con.Open();
                 DataSet ds = new DataSet();
                 str = "SELECT tlb_MainInstallment.ID  ,tlb_Customer.Cust_ID,tlb_Customer.Name ,tlb_MainInstallment.Bill_No ,tlb_MainInstallment.Total_Price ,tlb_MainInstallment.Paid_Amount " +
@@ -3713,14 +3713,14 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
                // str = "SELECT [ID],[DealerEntryID],[CompanyName],[DealerFirstName] + ' ' + [DealerLastName] AS [DealerName],[DateOfBirth],[MobileNo],[PhoneNo],[DealerAddress] " +
                             // "FROM [tbl_DealerEntry] " +
                              "WHERE ";
-                //if (txtInstall_CustName.Text.Trim() != "")
-                //{
-                //    str = str + "tlb_Customer.Name LIKE ISNULL('" + txtInstall_CustName.Text.Trim() + "',tlb_Customer.Name) + '%' AND ";
-                //}
-                if (cmbInstall_CustID.Text != "--Select--")
+                if (txtInstall_CustName.Text.Trim() != "")
                 {
-                    str = str + " tlb_Customer.Cust_ID LIKE ISNULL('" + cmbInstall_CustID.SelectedValue .ToString ().Trim () + "',tlb_Customer.Cust_ID) + '%' AND ";
+                    str = str + "tlb_Customer.Name LIKE ISNULL('" + txtInstall_CustName.Text.Trim() + "',tlb_Customer.Name) + '%' AND ";
                 }
+                //if (cmbInstall_CustID.Text.Equals("--Select--"))
+                //{
+                //    str = str + " tlb_Customer.Cust_ID LIKE ISNULL('" + cmbInstall_CustID.Text.Trim() + "',tlb_Customer.Cust_ID) + '%' AND ";
+                //}
                 //if (cmbInstall_CustID.Text ==str1 )
                 //{
                 //    str = str + " tlb_Customer.Cust_ID LIKE ISNULL('" + cmbInstall_CustID.Text.Trim() + "',tlb_Customer.Cust_ID) + '%' AND ";
@@ -3815,6 +3815,43 @@ private void btnInvoice_C_SaveandPrint_Click(object sender, RoutedEventArgs e)
         {
             OldCustomer_Details();
         }
+
+        private void btndgv_InstEdit_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                object item = DGRD_InstallmentCust.SelectedItem;
+                string ID = (DGRD_InstallmentCust.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
+                string cid = (DGRD_InstallmentCust.SelectedCells[1].Column.GetCellContent(item) as TextBlock).Text;
+                string CName = (DGRD_InstallmentCust.SelectedCells[2].Column.GetCellContent(item) as TextBlock).Text;
+                double TP =Convert .ToDouble((DGRD_InstallmentCust.SelectedCells[4].Column.GetCellContent(item) as TextBlock).Text);
+                double PA = Convert.ToDouble((DGRD_InstallmentCust.SelectedCells[5].Column.GetCellContent(item) as TextBlock).Text);
+                double BA = Convert.ToDouble((DGRD_InstallmentCust.SelectedCells[6].Column.GetCellContent(item) as TextBlock).Text);
+                double MA = Convert.ToDouble((DGRD_InstallmentCust.SelectedCells[7].Column.GetCellContent(item) as TextBlock).Text);
+                MessageBox.Show(ID);
+                GRD_InstallmentProcess.Visibility = Visibility;
+                lbl_Instal_CustomerID.Content = cid;
+                txt_InstalCustomerName.Text = CName;
+                txt_InstalTotalAmount.Text = TP.ToString ();
+                txt_InstalPaidAmount.Text = PA.ToString();
+                txt_InstalBalanceAmount.Text = BA.ToString();
+                txtInstalAmountPermonth.Text = MA.ToString();
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            finally { con.Close(); }
+           
+        }
+
+        private void btn_InstalExit_Click(object sender, RoutedEventArgs e)
+        {
+            GRD_InstallmentProcess.Visibility = Visibility.Hidden;
+        }
+
+      
 
 
     }
